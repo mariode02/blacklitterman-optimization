@@ -1,0 +1,6 @@
+ticker,market_cap_weight
+AAPL,0.30
+MSFT,0.25
+GOOGL,0.20
+AMZN,0.15
+META,0.10
