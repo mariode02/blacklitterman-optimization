@@ -34,7 +34,7 @@ def validate_command(
         try:
             # Download 5 days to check availability
             data = yf.download(ticker, period="5d", progress=False)
-            if data.empty:
+            if data is None or data.empty:
                 table.add_row(ticker, "[red]Failed[/]", "No data found")
                 all_valid = False
             else:

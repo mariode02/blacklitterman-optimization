@@ -1,9 +1,10 @@
+import numpy as np
+import pandas as pd
+from sklearn.pipeline import Pipeline
+from skfolio.moments import EquilibriumMu, LedoitWolf
 from skfolio.optimization import MeanRisk, ObjectiveFunction
 from skfolio.pre_selection import DropCorrelated
 from skfolio.prior import BlackLitterman, EmpiricalPrior
-from skfolio.moments import EquilibriumMu, LedoitWolf
-from sklearn.pipeline import Pipeline
-import pandas as pd
 
 
 _TRADING_DAYS = 252
@@ -11,7 +12,7 @@ _TRADING_DAYS = 252
 
 def build_pipeline(
     view_strings: list[str],
-    market_cap_weights: pd.Series | None = None,
+    market_cap_weights: pd.Series | None = None,  # converted to ndarray before use
     objective: ObjectiveFunction = ObjectiveFunction.MAXIMIZE_RATIO,
     risk_free_rate: float = 0.04,
     correlation_threshold: float = 0.90,
@@ -42,7 +43,7 @@ def build_pipeline(
         prior_estimator=EmpiricalPrior(
             mu_estimator=EquilibriumMu(
                 risk_aversion=risk_aversion,
-                weights=market_cap_weights,
+                weights=market_cap_weights.to_numpy() if market_cap_weights is not None else None,
             ),
             covariance_estimator=LedoitWolf(),
         ),

@@ -64,11 +64,10 @@ def run_command(
         # Prepare target: 21-day forward return
         # Returns conversion
         from skfolio.preprocessing import prices_to_returns
-        returns_full = prices_to_returns(prices)
+        _ret = prices_to_returns(prices)
+        returns_full: pd.DataFrame = _ret if isinstance(_ret, pd.DataFrame) else _ret[0]
 
-        # Align features and returns
-        # Target is forward return (shifted backward)
-        y_full = returns_full.shift(-21).dropna()
+        y_full: pd.DataFrame = returns_full.shift(-21).dropna()
         common_index = X_multi.index.intersection(y_full.index)
         X = X_multi.loc[common_index]
         y = y_full.loc[common_index]

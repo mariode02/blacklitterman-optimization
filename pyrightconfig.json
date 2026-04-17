@@ -1,0 +1,9 @@
+{
+    "include": ["src"],
+    "venvPath": "C:/Users/mario/miniconda3/envs",
+    "venv": "bl-optimizer",
+    "pythonVersion": "3.11",
+    "typeCheckingMode": "standard",
+    "reportMissingImports": true,
+    "reportMissingTypeStubs": false
+}
